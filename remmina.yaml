@@ -1,0 +1,20 @@
+---
+name: remmina
+services:
+  remmina:
+    image: ghcr.io/iscodingeasyornot/docker-remmina:main
+    container_name: remmina
+    environment:
+      - USER_ID=1000
+      - GROUP_ID=1000
+      - TZ=Etc/UTC
+      # When KEEP_APP_RUNNING set to 1, the application will be automatically restarted when it crashes or terminates.
+      - KEEP_APP_RUNNING=1
+      - WEB_LISTENING_PORT=5800
+      - VNC_LISTENING_PORT=5900
+    volumes:
+      - /config:/config
+    ports:
+      - 5800:5800
+      #- 5900:5900
+    restart: unless-stopped
