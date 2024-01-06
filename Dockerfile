@@ -3,7 +3,7 @@ FROM jlesage/baseimage-gui:ubuntu-22.04-v4.5.3
 
 # Update package lists and install required dependencies
 RUN apt-get -qq update && \
-    apt-get install -y -qq sudo build-essential git-core cmake libssl-dev libx11-dev libxext-dev \
+    apt-get install -qq sudo build-essential git-core cmake libssl-dev libx11-dev libxext-dev \
     libxinerama-dev libxcursor-dev libxdamage-dev libxv-dev libxkbfile-dev libasound2-dev \
     libcups2-dev libxml2 libxml2-dev libxrandr-dev libgstreamer1.0-dev \
     libgstreamer-plugins-base1.0-dev libxi-dev libavutil-dev \
@@ -13,11 +13,11 @@ RUN apt-get -qq update && \
     libayatana-appindicator3-dev intltool libsecret-1-dev libwebkit2gtk-4.0-dev \
     libsystemd-dev libsoup2.4-dev libjson-glib-dev libswresample-dev libsodium-dev \
     libusb-1.0-0-dev libpcre2-dev libicu-dev libpython3-dev && \
-    apt-get clean && \
+    apt-get -qq clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Remove freerdp-x11 package and all packages containing the string remmina in the package name
-RUN apt-get purge -y -qq $(apt list --installed 2>/dev/null | grep -E "^remmina|^libfreerdp|^freerdp|^libwinpr" | awk -F/ '{print $1}')
+RUN apt-get purge -qq $(apt list --installed 2>/dev/null | grep -E "^remmina|^libfreerdp|^freerdp|^libwinpr" | awk -F/ '{print $1}')
 
 # Create directories and clone repositories
 RUN mkdir ~/remmina_devel && \
